@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/yunify/qingcloud-sdk-go/logger"
 	qc "github.com/yunify/qingcloud-sdk-go/service"
 )
 
@@ -83,6 +84,8 @@ func isVxnetSelfManaged(vxnetId string, clt *qc.VxNetService) (bool, error) {
 	}
 	input := new(qc.DescribeVxNetsInput)
 	input.VxNets = []*string{qc.String(vxnetId)}
+	input.VxNetType = qc.Int(2)
+	logger.Info(fmt.Sprintf("---isVxnetSelfManaged--> input values: %v", input))
 	output, err := clt.DescribeVxNets(input)
 	if err != nil {
 		return false, err

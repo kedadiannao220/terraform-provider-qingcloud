@@ -2,6 +2,7 @@ package qingcloud
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
 	qc "github.com/yunify/qingcloud-sdk-go/service"
@@ -167,6 +168,14 @@ func resourceQingcloudInstanceCreate(d *schema.ResourceData, meta interface{}) e
 	} else {
 		return fmt.Errorf("loginMode is Required!")
 	}
+
+	// add vxnets
+	vxnets := getSetStringPointer(d, resourceInstanceManagedVxnetID)
+	var vxnetsStringPointer []*string
+	for _, s := range strings.Split(*vxnets, ",") {
+		vxnetsStringPointer = append(vxnetsStringPointer, &s)
+	}
+	input.VxNets = vxnetsStringPointer
 
 	if d.Get(resourceInstanceUserData).(string) != "" {
 		if err := setInstanceUserData(d, meta, input); err != nil {
