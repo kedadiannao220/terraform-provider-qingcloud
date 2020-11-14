@@ -26,7 +26,6 @@ _testmain.go
 
 .DS_Store
 /test-tf
-terraform-provider-qingcloud*
 /test-*
 *.tfstate
 build
