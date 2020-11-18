@@ -123,7 +123,7 @@ func RouterTransitionStateRefresh(clt *qc.RouterService, id string) (interface{}
 	}
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"creating", "updating", "suspending", "resuming", "poweroffing", "poweroning", "deleting"},
-		Target:     []string{"creating"},
+		Target:     []string{"creating",""},
 		Refresh:    refreshFunc,
 		Timeout:    waitJobTimeOutDefault * time.Second,
 		Delay:      waitJobIntervalDefault * time.Second,
@@ -164,7 +164,7 @@ func InstanceTransitionStateRefresh(clt *qc.InstanceService, id string) (interfa
 	}
 	stateConf := &resource.StateChangeConf{
 		Pending:    []string{"creating", "updating", "suspending", "resuming", "poweroffing", "poweroning", "deleting", "stopping", "starting", "terminating"},
-		Target:     []string{"creating", "starting"},
+		Target:     []string{"creating", "starting",""},
 		Refresh:    refreshFunc,
 		Timeout:    waitJobTimeOutDefault * time.Second,
 		Delay:      waitJobIntervalDefault * time.Second,
